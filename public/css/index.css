@@ -1,0 +1,20 @@
+.th-ativos {
+    padding: 20px;
+    padding-right: 500px;  
+}
+
+th {
+    color: #595970; 
+    background: #efefef; 
+    border-left: 1px solid #595970;
+}
+
+td {
+    padding: 20px;
+    
+}
+
+#tabela-ativos {
+    border-collapse: collapse;
+    border: 1px solid
+}
