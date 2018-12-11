@@ -6,20 +6,20 @@
     <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
-    <table id="tabela-ativos">
+    <table id="tabela-ativos" class="tabela-at">
         <thead>
             <th class="th-ativos">Ativos (<span id="qtdAtivos"></span>)</th>
-            <th>R$ <input type="text" width="60px"/></th>
-            <th><span id="qtdPorcentagem">%</span></th>
+            <th>R$ <input type="text" width="60px" id="inputTotal" class="inputTxtTotal"/></th>
+            <th><span id="qtdPorcentagem">100</span><span> %</span></th>
+            <th><img src="./ic_lixeira.png"/></th>
         </thead>
         <tbody>
-            <tr>
-                <td>Ativo 1</td>
-                <td>Valor</td>
-                <td>Porcentagem</td>
-                <td><img src=""/></td>
-            </tr>
         </tbody>
     </table>
+
+         <button id="btnAdicionar"><img src="./ic_add.png" class="ic_add" alt="text"/><span><b>Adicionar Ativo</b></span></button>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
