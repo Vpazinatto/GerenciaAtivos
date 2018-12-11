@@ -1,31 +1,64 @@
 $('#btnAdicionar').click(novoAtivo);
-$('#qtdAtivos').click(getQtdAtivos);
-$('#inputTotal').val(Math.round(Math.random() * 1000000));
 
-const listaAtivos = ["A", "B", "C", "D"];
+const nomes = ["A", "B", "C"];
+let listaAtivos = [];
+let qtdAtivos = 0;
+let totalInvestido = 0;
+let totalPorcentagem = 0;
+
+class Ativo {
+	constructor(id, nome, valor, porcentagem) {
+		this.id = id;
+		this.nome = nome;
+        this.valor = valor;
+        this.porcentagem = porcentagem;
+	}
+}
 
 $(function() {
-    getQtdAtivos();
+    nomes.forEach(() => {
+	novoAtivo();
+    });
+    calculaPorcentagem();
 })
 
-function novoAtivo(nomeAtivo) {
-    
-    var tabela = $('.tabela-at').find('tbody'); 
+function totalValor() {
+    listaAtivos.forEach(ativo => {
+        totalInvestido += ativo.valor;
+    });
+    return totalInvestido;
+}
 
-    var linha = $('<tr>');
-    var colunaNome = $('<td>').text(nomeAtivo);
-    var colunaValor = $('<td>').text("R$ ");
-    var inputValor = $('<input>').addClass('inputAtivoinvestimento').attr("type", "number");
+function calculaPorcentagem() {
+    listaAtivos.forEach(ativo => {
+        ativo.porcentagem = ativo.valor / totalInvestido * 100;
+        $('#inputPorcentagem' + ativo.id).val((ativo.porcentagem).toFixed(2));
+    });
+}
+
+function novoAtivo() {
+    
+    let ativo = new Ativo(qtdAtivos++, "teste");
+    listaAtivos.push(ativo);
+    let tabela = $('.tabela-at').find('tbody'); 
+    let linha = $('<tr>');
+    let colunaNome = $('<td>').text(ativo.nome);
+    let colunaValor = $('<td>').text("R$ ");
+    let inputValor = $('<input>').addClass('inputAtivoinvestimento').attr("type", "number").attr("id", "inputValor" + ativo.id).attr("value", ativo.valor);
 
     colunaValor.append(inputValor);
 
-    var colunaPorcentagem = $('<td>');
-    var inputPorcentagem = $('<input>').addClass('inputPorcentagem').attr('type', 'text');
+    $('#inputTotal').val(totalValor());
+
+    let colunaPorcentagem = $('<td>');
+    
+    ativo.porcentagem = 0;
+    let inputPorcentagem = $('<input>').addClass('inputPorcentagem').attr('type', 'number').attr('id', 'inputPorcentagem' + ativo.id);
 
     colunaPorcentagem.append(inputPorcentagem);
 
-    var colunaRemover = $('<td>');
-    var img = $('<img>').addClass('btnX').attr("src", "./ic_remove.png");
+    let colunaRemover = $('<td>');
+    let img = $('<img>').addClass('btnX').attr("src", "./ic_remove.png");
 
     colunaRemover.append(img);
 
@@ -36,15 +69,21 @@ function novoAtivo(nomeAtivo) {
     linha.find('.btnX').click(removeLinha);
     
     tabela.append(linha);
+    getQtdAtivos();
 }
 
 function removeLinha() {
-    var linha = $(this).parent().parent();
+    let linha = $(this).parent().parent();
     linha.remove();
 }
 
-function getQtdAtivos() {
+function atualizaLista() {
     listaAtivos.forEach(ativo => {
-        novoAtivo(ativo);
+        novoAtivo();
     });
+    
+}
+
+function getQtdAtivos() {
+    $('#qtdAtivos').text(listaAtivos.length);
 }

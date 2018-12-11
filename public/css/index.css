@@ -35,10 +35,12 @@ td {
 .inputPorcentagem {
     max-width: 100px;
     margin-right: 10px;
+    text-align: left;
 }
 
 .inputAtivoinvestimento {
     width: 170px;
+    text-align: left;
 }
 
 .ic_add {
